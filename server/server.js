@@ -2,9 +2,11 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var port = 8000;
+var logger = require('./logger');
 
 var urlpath = path.join(__dirname, '../frontend/build/');
 
+app.use(logger);
 app.use(express.static(urlpath));
 
 /*
