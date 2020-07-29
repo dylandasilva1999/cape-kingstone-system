@@ -1,13 +1,11 @@
+var path = require('path');
 var express = require('express');
 var app = express();
 var port = 8000;
 
-app.use(express.static('public'));
+var urlpath = path.join(__dirname, '../frontend/public/');
 
-app.get('/', (request, response) => {
-    console.log(__dirname);
-    response.sendFile(__dirname + '/public/index.html');
-});
+app.use(express.static(urlpath));
 
 /*
 
