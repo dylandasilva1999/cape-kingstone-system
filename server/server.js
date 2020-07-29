@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 var port = 8000;
 
-var urlpath = path.join(__dirname, '../frontend/public/');
+var urlpath = path.join(__dirname, '../frontend/build/');
 
 app.use(express.static(urlpath));
 
