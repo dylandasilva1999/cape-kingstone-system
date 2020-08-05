@@ -2,6 +2,7 @@ var path = require('path');
 var express = require('express');
 var app = express();
 var port = 8000;
+var authenticator = require('./authenticator');
 var logger = require('./logger');
 var data = require('./data');
 
@@ -9,6 +10,7 @@ var urlpath = path.join(__dirname, '../frontend/build/');
 
 app.use(logger);
 app.use(express.static(urlpath));
+app.use(authenticator);
 
 app.param('subject', function (request, response, next) {
     request.lowerName = request.params.subject.toLowerCase();
@@ -100,18 +102,23 @@ app.get('/api/learners/:id/classes', function (request, response) {
     
 });
 
-app.get('/api/teachers/', function (request, response) {
-    var teachersList = [];
-    var teacher = null;
+/*
+7. A user id when a valid email and password are supplied
+*/
+app.get('/api/learners/:id/classes', function (request, response) {
+    var learnerName = "";
+    var learnerClasses = [];
+    var learnerSubjects = [];
+    var id = request.params.id;
     
-    for (var i = 0; i < data.teachers.length; i++) {
-        teachersList.push(data.teachers[i].name);
+    for (var i = 0; i < data.learners.length; i++) {
+        if (data.learners[i].id === parseInt(id)) {
+            learnerClasses = data.learners[i].classes;
+            learnerName = data.learners[i].name;  
+        }
+        learnerSubjects.push(data.classes[i].subject); 
     }
-    response.json(teachersList);
-
-    if (teacher == null) {
-        response.status(404).json("No teacher with id '" + id + "'found.");
-    }
+    response.json("Learner with ID " + id + " is " + learnerName + " who takes these classes: " + learnerClasses);
     
 });
 
