@@ -12,15 +12,16 @@ app.use(logger);
 app.use(express.static(urlpath));
 app.use(authenticator);
 
-app.param('subject', function (request, response, next) {
-    request.lowerName = request.params.subject.toLowerCase();
+
+app.param('subject', (request, response, next) => {
+    request.toLower = request.params.subject.toLowerCase();
     next();
 });
 
 /*
 1. List of all the classes
 */
-app.get('/api/classes/', function (request, response) {
+app.get('/api/classes/', (request, response) => {
     response.json(data.classes);
 });
 
@@ -31,35 +32,76 @@ app.get('/api/classes/', function (request, response) {
     c. The time of the class (Day and period)
     d. The classroom number
 */
-app.get('/api/teachers/:id', function (request, response) {
-    var results = [];
-    // var lowerName = request.params.name.toLowerCase();
-    for (var i = 0; i < data.classes.length; i++) {
-      if (data.classes[i].id === data.teachers[i].classes) {
-        results.push(data.classes[i]);
+app.get('/api/classDetails/:id', (request, response) => {
+    var id = request.response.id;
+    var teacherName = "";
+    var students = [];
+    var classSlot, classTime, classNumber, className;
+  
+    //Getting Teacher Name of Specific Class
+    for (var i = 0; i < data.teachers.length; i++) {
+      for (var p = 0; p < data.teachers[i].classes.length; j++) {
+        if (data.teachers[i].classes[j] === parseInt(id)) {
+            teacherName = data.teachers[i].name;
+        }
       }
     }
-    response.json(results);
+  
+    //Getting Students in that Specific class
+    for (var i = 0; i < data.learners.length; i++) {
+      for (var p = 0; p < data.learners[i].classes.length; p++) {
+        if (data.learners[i].classes[j] === parseInt(id)) {
+            students.push(data.learners[i].name);
+        }
+      }
+    }
+  
+    //Getting classSlot, classNumber and className of Specific class
+    for (var i = 0; i < data.classes.length; i++) {
+      if (data.classes[i].id === parseInt(id)) {
+        classSlot = data.classes[i].slot;
+        classNumber = data.classes[i].classroom;
+        className = data.classes[i].subject;
+      }
+    }
+  
+    //Getting classTime of the Specific class
+    for (var i = 0; i < data.slots.length; i++) {
+      if ((data.slots[i].slot = slot)) {
+        for (var p = 1; p < data.slots[i].times.length; p++) {
+          if (p === classGroup) {
+            classTime = data.slots[i].times[p];
+          }
+        }
+      }
+    }
+  
+    response.json("The specific class is " + className + " and details on this class: \\n\\n" + 
+    "a. The teacher of the class is: " + teacherName + "\\n" + 
+    "b. The students in this class are: " + students + "\\n" +
+    "c. Time and Day of class: " + classTime + "\\n" +
+    "d. The classroom number is: " + classNumber);
 });
 
 /*
 4. The Subject
 */
-app.get('/api/classes/:subject', function (request, response) {
-    var subject = [];
+app.get('/api/classes/:subject', (request, response) => {
+    var subject = request.params.subject;
 
     for (var i = 0; i < data.classes.length; i++) {
-        if (data.classes[i].subject === request.lowerName) {
-            subject.push(data.classes[i]);
+        if (data.classes[i].subject == request.toLower) {
+            response.json("The subject is: " + subject);
+        } else {
+            response.json("The subject does not exist");
         }
     }
-    response.json("The subject is: " + subject);
 });
 
 /*
 5. A list of classes taught by a particular teacher
 */
-app.get('/api/teachers/:id/classes', function (request, response) {
+app.get('/api/teachers/:id/classes', (request, response) => {
     var teacherName = "";
     var teacherNumClasses = [];
     var teacherSubjectNames = [];
@@ -79,13 +121,12 @@ app.get('/api/teachers/:id/classes', function (request, response) {
     }
 
     response.json("Teacher with ID " + id + " is " + teacherName + " who teaches these classes: " + teacherNumClasses + " which are " + teacherSubjectNames);
-    
 });
 
 /*
 6. A list of classes taken by a particular learner
 */
-app.get('/api/learners/:id/classes', function (request, response) {
+app.get('/api/learners/:id/classes', (request, response) => {
     var learnerName = "";
     var learnerClasses = [];
     var learnerSubjects = [];
@@ -99,27 +140,23 @@ app.get('/api/learners/:id/classes', function (request, response) {
         learnerSubjects.push(data.classes[i].subject); 
     }
     response.json("Learner with ID " + id + " is " + learnerName + " who takes these classes: " + learnerClasses);
-    
 });
 
 /*
 7. A user id when a valid email and password are supplied
 */
-app.get('/api/learners/:id/classes', function (request, response) {
-    var learnerName = "";
-    var learnerClasses = [];
-    var learnerSubjects = [];
+app.get('/api/teachers/:id/:email/:password', (request, response) => {
     var id = request.params.id;
+    var email = request.params.email;
+    var password = request.params.password;
     
-    for (var i = 0; i < data.learners.length; i++) {
-        if (data.learners[i].id === parseInt(id)) {
-            learnerClasses = data.learners[i].classes;
-            learnerName = data.learners[i].name;  
+    for (var i = 0; i < data.teachers.length; i++) {
+        if (data.teachers[i].id === parseInt(id) && data.teachers[i].email === email && data.teachers[i].password === password ) {
+            response.json("Email and Password for teacher with ID: " + id);
+        } else {
+            response.json("The user email and password are incorrect for user with ID: " + id);
         }
-        learnerSubjects.push(data.classes[i].subject); 
     }
-    response.json("Learner with ID " + id + " is " + learnerName + " who takes these classes: " + learnerClasses);
-    
 });
 
 app.get('/home', (request, response) => {
