@@ -1,3 +1,5 @@
 # Cape Kingstone High School
 
-This is where I will write all of my documentation
+This is a React ExpressJS application for the fictional Cape Kingstone High School brand I created. <br><br>
+
+It is an administration portal where either learners or teachers can view their classes and the details.
