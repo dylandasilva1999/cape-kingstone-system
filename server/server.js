@@ -84,6 +84,23 @@ app.get('/api/classDetails/:id', (request, response) => {
 });
 
 /*
+3. School of Interaction Arts Brief
+*/
+app.get('/api/brief/:id', (request, response) => {
+    var id = request.params.id;
+    var brief;
+
+    for (var i = 0; i < data.briefs.length; i++) {
+        if (data.briefs[i].id === parseInt(id)) {
+            brief = data.briefs[i].name;
+            response.json("The brief is: " + brief);
+        } else {
+            response.json("The brief does not exist");
+        }
+    }
+});
+
+/*
 4. The Subject
 */
 app.get('/api/classes/:subject', (request, response) => {

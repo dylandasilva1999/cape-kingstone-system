@@ -90,4 +90,8 @@ var learners = [
     {id: 03, name: "Jeffery Medina", classes: [21, 24, 25, 27, 28, 30]}
 ];
 
-module.exports = {classes: classes, slots: slots, teachers: teachers, learners: learners};
+var briefs = [
+    {id: 01, name: "School of Interaction Arts", brief: "You have to create a simple wall sensor robot, that will follow the wall", file: "./MEAN-ExpressJS-203-Brief-2020.pdf"}
+];
+
+module.exports = {classes: classes, slots: slots, teachers: teachers, learners: learners, briefs: briefs};
