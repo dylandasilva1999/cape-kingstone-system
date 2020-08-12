@@ -6,7 +6,7 @@ var authenticator = require('./authenticator');
 var logger = require('./logger');
 var data = require('./data');
 
-var urlpath = path.join(__dirname, '../frontend/build/');
+var urlpath = path.join(__dirname, '../frontend/build');
 
 app.use(logger);
 app.use(express.static(urlpath));
