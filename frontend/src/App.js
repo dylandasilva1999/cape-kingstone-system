@@ -11,6 +11,13 @@ function App() {
   return (
     <div className="App">
         <ResponsiveDrawer position = 'fixed'></ResponsiveDrawer>
+
+        <div className = "padding-app-drawer" />
+
+        <Container maxWidth="xl" className="graphs-container">
+
+        </Container>
+
     </div>
   );
 }

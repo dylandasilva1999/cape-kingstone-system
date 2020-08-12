@@ -15,7 +15,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import { ReactComponent as Logo } from "../../images/Logo.svg";
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import PhonelinkLockIcon from '@material-ui/icons/PhonelinkLock';
+import TodayIcon from '@material-ui/icons/Today';
 import HelpIcon from '@material-ui/icons/Help';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
@@ -35,12 +35,15 @@ const useStyles = makeStyles(theme => ({
       flexShrink: 0,
     },
   },
+  MenuItem: {
+    padding: '15px',
+  },
   ListItemIcon: {
     padding: '15px',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    background: 'linear-gradient(45deg, #27265F 00%, #F15F24 100%)',
+    background: '#27265F',
     height: 90,
   },
   menuButton: {
@@ -87,6 +90,7 @@ function ResponsiveDrawer() {
             <br></br>
             <Divider />
                 <MenuList>
+                <br></br>
                 <MenuItem to="/">
                 <ListItemIcon>{<DashboardIcon />}</ListItemIcon>
                     Dashboard
@@ -96,10 +100,12 @@ function ResponsiveDrawer() {
                     Details 
                 </MenuItem>
                 <MenuItem to="/authentication">
-                <ListItemIcon>{<PhonelinkLockIcon />}</ListItemIcon>
+                <ListItemIcon>{<TodayIcon />}</ListItemIcon>
                     Timetable
                 </MenuItem>
+                <br></br>
                 <Divider />
+                <br></br>
                 <MenuItem to="/account">
                 <ListItemIcon>{<AccountCircleIcon />}</ListItemIcon>
                     Account
