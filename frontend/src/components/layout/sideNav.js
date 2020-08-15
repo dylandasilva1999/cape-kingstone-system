@@ -21,8 +21,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
+import { blue } from '@material-ui/core/colors';
 
-const drawerWidth = 260;
+const drawerWidth = 270;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,10 +37,11 @@ const useStyles = makeStyles(theme => ({
     },
   },
   MenuItem: {
-    padding: '15px',
+    padding: 15,
   },
   ListItemIcon: {
-    padding: '15px',
+    marginLeft: '15px',
+    color: 'blue',
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -84,7 +86,7 @@ function ResponsiveDrawer() {
             </div>
             <div className="ProfileName">
                 <h2>Dylan da Silva</h2>
-                <h4>Web Developer</h4>
+                <h4>Teacher</h4>
             </div>
             </div>
             <br></br>
