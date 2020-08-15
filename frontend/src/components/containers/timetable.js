@@ -17,7 +17,6 @@ const StyledTableCell = withStyles(() => ({
     fontSize: 14,
   },
   tableRightBorder: { 
-    borderWidth: 0, 
     borderWidth: 1, 
     borderColor: 'red',
     borderStyle: 'solid'

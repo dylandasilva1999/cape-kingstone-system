@@ -21,7 +21,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import PeopleIcon from '@material-ui/icons/People';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
-import { blue } from '@material-ui/core/colors';
 
 const drawerWidth = 270;
 
