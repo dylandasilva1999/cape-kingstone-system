@@ -7,6 +7,7 @@ var authenticator = require('./authenticator');
 var logger = require('./logger');
 var data = require('./data');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
 var urlpath = path.join(__dirname, '../frontend/build');
@@ -14,6 +15,7 @@ var urlpath = path.join(__dirname, '../frontend/build');
 app.use(logger);
 app.use(express.static(urlpath));
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(authenticator);
 
 app.param('subject', (request, response, next) => {
@@ -30,6 +32,7 @@ app.post('/api/login', (request, response) => {
     console.log(loginDetails);
     //Do user validation here
     const token = jwt.sign({"name": "Dylan", "id": "12345"}, process.env.ACCESS_TOKEN_SECRET);
+    response.cookie("token", token);
     response.json({token: token});
 });
 
