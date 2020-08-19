@@ -7,6 +7,7 @@ var authenticator = require('./authenticator');
 var logger = require('./logger');
 var data = require('./data');
 var bodyParser = require('body-parser');
+const jwt = require('jsonwebtoken');
 
 var urlpath = path.join(__dirname, '../frontend/build');
 
@@ -27,7 +28,9 @@ app.get('/home', (request, response) => {
 app.post('/api/login', (request, response) => {
     var loginDetails = request.body;
     console.log(loginDetails);
-    response.json({token: 'Some token here'});
+    //Do user validation here
+    const token = jwt.sign({"name": "Dylan", "id": "12345"}, process.env.ACCESS_TOKEN_SECRET);
+    response.json({token: token});
 });
 
 app.post('/api/protected', authenticator, (request, response) => {
