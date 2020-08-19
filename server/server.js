@@ -1,4 +1,5 @@
 var path = require('path');
+require('dotenv').config();
 var express = require('express');
 var app = express();
 var port = 8000;
@@ -12,7 +13,7 @@ var urlpath = path.join(__dirname, '../frontend/build');
 app.use(logger);
 app.use(express.static(urlpath));
 app.use(bodyParser.json());
-//app.use(authenticator);
+app.use(authenticator);
 
 app.param('subject', (request, response, next) => {
     request.toLower = request.params.subject.toLowerCase();
@@ -26,11 +27,11 @@ app.get('/home', (request, response) => {
 app.post('/api/login', (request, response) => {
     var loginDetails = request.body;
     console.log(loginDetails);
-    response.json(loginDetails);
+    response.json({token: 'Some token here'});
 });
 
 app.post('/api/protected', authenticator, (request, response) => {
-    response.json(request.user)
+    response.json(request.user);
 });
 
 /*
