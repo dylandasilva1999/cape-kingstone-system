@@ -5,17 +5,32 @@ var port = 8000;
 var authenticator = require('./authenticator');
 var logger = require('./logger');
 var data = require('./data');
+var bodyParser = require('body-parser');
 
 var urlpath = path.join(__dirname, '../frontend/build');
 
 app.use(logger);
 app.use(express.static(urlpath));
-app.use(authenticator);
-
+app.use(bodyParser.json());
+//app.use(authenticator);
 
 app.param('subject', (request, response, next) => {
     request.toLower = request.params.subject.toLowerCase();
     next();
+});
+
+app.get('/home', (request, response) => {
+    response.redirect(301, '/');
+});
+
+app.post('/api/login', (request, response) => {
+    var loginDetails = request.body;
+    console.log(loginDetails);
+    response.json(loginDetails);
+});
+
+app.post('/api/protected', authenticator, (request, response) => {
+    response.json(request.user)
 });
 
 /*
