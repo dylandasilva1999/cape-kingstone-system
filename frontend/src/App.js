@@ -1,24 +1,26 @@
 import React from 'react';
-import './App.css';
+import '../src/App.css';
 
-import '../src/components/layout/sideNav'
-import ResponsiveDrawer from '../src/components/layout/sideNav';
-import '../src/components/containers/timetable';
-import CustomizedTables from '../src/components/containers/timetable';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Link
+} from "react-router-dom";
 
-import Container from '@material-ui/core/Container';
-//import Grid from '@material-ui/core/Grid';
+import Dashboard from '../src/components/pages/Dashboard';
+import Login from '../src/components/pages/Login';
 
 function App() {
   return (
     <div className="App">
-        
+
         <Router>
 		      <div>
 		        <nav>
 		          <ul>
 		            <li>
-		              <Link to="/">Home</Link>
+		              <Link to="/dashboard">Home</Link>
 		            </li>
 		            <li>
 		              <Link to="/login">Login</Link>
@@ -27,15 +29,15 @@ function App() {
 		        </nav>
 
 		        <Switch>
-		          <Route path="/login">
-		            <Login />
-		          </Route>
 		          <Route path="/dashboard">
-		            <Home />
+				  	<Dashboard />
+		          </Route>
+		          <Route path="/login">
+				  	<Login />
 		          </Route>
 		        </Switch>
 		      </div>
-		    </Router>
+			</Router>
 
     </div>
   );

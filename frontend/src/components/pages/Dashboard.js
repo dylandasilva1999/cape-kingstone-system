@@ -1,15 +1,15 @@
 import React from 'react';
-import './App.css';
+import '../../App.css';
 
-import '../src/components/layout/sideNav'
-import ResponsiveDrawer from '../src/components/layout/sideNav';
-import '../src/components/containers/timetable';
-import CustomizedTables from '../src/components/containers/timetable';
+import '../layout/sideNav'
+import ResponsiveDrawer from '../layout/sideNav';
+import '../containers/timetable';
+import CustomizedTables from '../containers/timetable';
 
 import Container from '@material-ui/core/Container';
 //import Grid from '@material-ui/core/Grid';
 
-export const Dashboard = () => {
+export default function Dashboard(){
 
     return (
         <div>
