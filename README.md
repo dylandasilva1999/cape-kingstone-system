@@ -1,6 +1,6 @@
 # Cape Kingstone High School
 
-![](./src/images/header-image.jpg)
+![](/frontend/src/images/header-image.jpg)
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/dylandasilva1999/spacify-app?color=%23F15F24)
 ![GitHub watchers](https://img.shields.io/github/watchers/dylandasilva1999/spacify-app?color=%23F15F24)
@@ -9,9 +9,13 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/dylandasilva1999/spacify-app?color=%23F15F24)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/dylandasilva1999/spacify-app?color=%23F15F24)
 
-# High School Scheduling System
+## High School Scheduling System
 
 This is a React ExpressJS application for the fictional Cape Kingstone High School brand I created. It is an administration portal where either learners or teachers can view their classes and the details.
+
+## Brand
+
+The brand is fictional and the Cape Kingstone High School does not exist. It is a brand I created to give depth and character to the project, as well as to enhance the industry like look and feel.
 
 **This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).**
 
