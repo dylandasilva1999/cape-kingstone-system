@@ -1,13 +1,19 @@
 var path = require('path');
+
 require('dotenv').config();
 var express = require('express');
+
 var app = express();
 var port = 8000;
+
 var authenticator = require('./authenticator');
 var logger = require('./logger');
+
 var data = require('./data');
+
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
+
 const jwt = require('jsonwebtoken');
 
 var urlpath = path.join(__dirname, '../frontend/build');

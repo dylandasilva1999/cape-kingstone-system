@@ -12,17 +12,30 @@ import Container from '@material-ui/core/Container';
 function App() {
   return (
     <div className="App">
-        <ResponsiveDrawer position = 'fixed'></ResponsiveDrawer>
+        
+        <Router>
+		      <div>
+		        <nav>
+		          <ul>
+		            <li>
+		              <Link to="/">Home</Link>
+		            </li>
+		            <li>
+		              <Link to="/login">Login</Link>
+		            </li>
+		          </ul>
+		        </nav>
 
-        <div className = "padding-app-drawer" />
-
-        <Container maxWidth="xl" className="container">
-
-          <h1 id="welcome">Welcome to your timetable <h1 id="user-name">Dylan da Silva</h1></h1>
-          <div className="divider" />
-          <CustomizedTables />
-
-        </Container>
+		        <Switch>
+		          <Route path="/login">
+		            <Login />
+		          </Route>
+		          <Route path="/dashboard">
+		            <Home />
+		          </Route>
+		        </Switch>
+		      </div>
+		    </Router>
 
     </div>
   );
