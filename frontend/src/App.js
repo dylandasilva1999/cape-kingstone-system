@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 
 import Dashboard from '../src/components/pages/Dashboard';
+import EditClasses from '../src/components/pages/EditClasses';
+import MyClasses from '../src/components/pages/MyClasses';
 import Login from '../src/components/pages/Login';
 
 function App() {
@@ -25,6 +27,12 @@ function App() {
 		            <li>
 		              <Link to="/login">Login</Link>
 		            </li>
+					<li>
+						<Link to="/classes">My Classes</Link>
+					</li>
+					<li>
+						<Link to="/edit">Edit Classes</Link>
+					</li>
 		          </ul>
 		        </nav>
 
@@ -34,6 +42,12 @@ function App() {
 		          </Route>
 		          <Route path="/login">
 				  	<Login />
+		          </Route>
+				  <Route path="/classes">
+				  	<MyClasses />
+		          </Route>
+				  <Route path="/edit">
+				  	<EditClasses />
 		          </Route>
 		        </Switch>
 		      </div>

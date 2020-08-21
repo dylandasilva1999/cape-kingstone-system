@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -11,7 +11,8 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import LoginImage from '../../images/free-to-use-sounds-4zIJSD9Xn8M-unsplash.jpg'
+import LoginImage from '../../images/free-to-use-sounds-4zIJSD9Xn8M-unsplash.jpg';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -47,6 +48,32 @@ const useStyles = makeStyles((theme) => ({
 export default function SignInSide() {
   const classes = useStyles();
 
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+
+  const submitForm = (e) => {
+    console.log("Submit")
+    console.log("Email", email)
+    console.log("Password", password)
+    fetch("http://localhost:8000/api/login", {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiUnVhbiIsImlkIjoiMTIzMzQ1NTQiLCJpYXQiOjE1OTc2Njg5OTR9.iZU3sUPih1GhYm5M4d8EklJDHFoO2Hoardn6QI6GnKU'
+      },
+    })
+      .then(response => response.json())
+      .then(data => console.log(data))
+
+  }
+  const onEmailChange = (e) => {
+    console.log(e.target.value)
+    setEmail(e.target.value)
+  }
+  const onPasswordChange = (e) => {
+    console.log(e.target.value)
+    setPassword(e.target.value)
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -66,10 +93,13 @@ export default function SignInSide() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Email"
               name="email"
               autoComplete="email"
               autoFocus
+              type="email"
+              value={email}
+              onChange={e => onEmailChange(e)}
             />
             <TextField
               variant="outlined"
@@ -81,6 +111,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={e => onPasswordChange(e)}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -92,6 +124,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              onClick={() => submitForm()}
             >
               Sign In
             </Button>
