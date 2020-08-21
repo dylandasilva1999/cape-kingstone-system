@@ -6,6 +6,8 @@ var express = require('express');
 var app = express();
 var port = 8000;
 
+//var cors = require('cors');
+
 var authenticator = require('./authenticator');
 var logger = require('./logger');
 
@@ -16,9 +18,15 @@ var cookieParser = require('cookie-parser');
 
 const jwt = require('jsonwebtoken');
 
+var corsOptions = {
+	origin: '*',
+	optionsSuccessStatus: 200
+}
+
 var urlpath = path.join(__dirname, '../frontend/build');
 
 app.use(logger);
+//app.use(cors(corsOptions));
 app.use(express.static(urlpath));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -148,24 +156,31 @@ app.get('/api/classes/:subject', (request, response) => {
 */
 app.get('/api/teachers/:id/classes', (request, response) => {
     var teacherName = "";
-    var teacherNumClasses = [];
-    var teacherSubjectNames = [];
+    var teacherClasses = [];
+    var teacherSubjects = [];
     var id = request.params.id;
     
     for (var i = 0; i < data.teachers.length; i++) {
         if (data.teachers[i].id === parseInt(id)) {
-            teacherNumClasses = data.teachers[i].classes;
-            teacherName = data.teachers[i].name;
-        }  
+            teacherClasses = data.teachers[i].classes;
+            teacherName = data.teachers[i].name;  
+        }
     }
 
     for (var i = 0; i < data.classes.length; i++) {
-        if (teacherNumClasses[i] === data.classes[i].id) {
-            teacherSubjectNames.push(data.classes[i].subject); 
+        for (var j = 0; j < teacherClasses.length; j++) {
+            if (teacherClasses[j] === data.classes[i].id) {
+                teacherSubjects.push(data.classes[i].subject); 
+            }
         }  
     }
 
-    response.json("Teacher with ID " + id + " is " + teacherName + " who teaches these classes: " + teacherNumClasses + " which are " + teacherSubjectNames);
+    var teacher = {
+        teacher: teacherName,
+        teacherSubjects: teacherSubjects
+    }
+
+    response.json(teacher);
 });
 
 /*
@@ -182,9 +197,22 @@ app.get('/api/learners/:id/classes', (request, response) => {
             learnerClasses = data.learners[i].classes;
             learnerName = data.learners[i].name;  
         }
-        learnerSubjects.push(data.classes[i].subject); 
     }
-    response.json("Learner with ID " + id + " is " + learnerName + " who takes these classes: " + learnerClasses);
+
+    for (var i = 0; i < data.classes.length; i++) {
+        for (var j = 0; j < learnerClasses.length; j++) {
+            if (learnerClasses[j] === data.classes[i].id) {
+                learnerSubjects.push(data.classes[i].subject); 
+            }
+        }  
+    }
+
+    var learner = {
+        learner: learnerName,
+        learnerSubjects: learnerSubjects
+    }
+
+    response.json(learner);
 });
 
 /*
