@@ -5,18 +5,16 @@ import '../layout/sideNav'
 import ResponsiveDrawer from '../layout/sideNav';
 import '../containers/timetable';
 
-import { useHistory } from "react-router-dom";
-
 import Container from '@material-ui/core/Container';
 //import Grid from '@material-ui/core/Grid';
 
 export default function AllClasses(){
 
-    const [classData, setClassData] = useState([]);
+    const [classDetails, setclassDetails] = useState([]);
 
     useEffect(() => {
   
-        fetch("http://localhost:8000/api/classes", {
+        fetch("http://localhost:8000/api/classDetails/1", {
                 method: 'GET',
                 mode: 'cors', 
                 cache: 'no-cache', 
@@ -32,19 +30,12 @@ export default function AllClasses(){
                 })
                 .then(data => {
                     console.log(data);
-                    setClassData(data);
+                    setclassDetails(data);
                 })
                 .catch(error => {
                       console.log(`Fetch Failed ${error}`);
                 });
         }, [])
-
-        const history = useHistory();
-
-        const routeChange = () => {
-            var path = `/classDetails`; 
-            history.push(path);
-        }
 
         return (
             <div>
@@ -58,14 +49,14 @@ export default function AllClasses(){
                     <div className="divider" />
 
                     <Fragment>
-                    {classData.length
-                    ? classData.map((i, index) => {
+                    {classDetails.length
+                    ? classDetails.map((i, index) => {
                         return (
-                            <div key={index} className="all-classes" onClick={routeChange}>
-                                <p>The id is: <h3>{i.id}</h3> </p>
-                                <p>Class Slot is: <h3>{i.slot}</h3> </p>
-                                <p>The Subject: <h3>{i.subject}</h3> </p>
-                                <p>In classroom: <h3>{i.classroom}</h3> </p>
+                            <div key={index} className="all-classes">
+                                <p>The Subject for this specific class is: <h3>{i.subject}</h3> </p>
+                                <p>The teacher for this class is: <h3>{i.teacher}</h3> </p>
+                                <p>Students in the class are: <h3>{i.students}</h3> </p>
+                                <p>The classroom is: <h3>{i.class}</h3> </p>
                             </div>
                         )
                     })

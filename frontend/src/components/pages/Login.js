@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import LoginImage from '../../images/free-to-use-sounds-4zIJSD9Xn8M-unsplash.jpg';
-
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,6 +74,13 @@ export default function SignInSide() {
     setPassword(e.target.value)
   }
 
+  const history = useHistory();
+
+  const routeChange = () => {
+    var path = `/classDetails`; 
+    history.push(path);
+  }
+
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
@@ -92,12 +99,12 @@ export default function SignInSide() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              autoComplete="email"
+              id="Full Name"
+              label="Full Name"
+              name="Full Name"
+              autoComplete="Full Name"
               autoFocus
-              type="email"
+              type="text"
               value={email}
               onChange={e => onEmailChange(e)}
             />
@@ -124,7 +131,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => submitForm()}
+              onClick={routeChange}
             >
               Sign In
             </Button>

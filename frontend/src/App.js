@@ -13,6 +13,7 @@ import EditClasses from '../src/components/pages/EditClasses';
 import AllClasses from '../src/components/pages/AllClasses';
 import Login from '../src/components/pages/Login';
 import LearnerClasses from '../src/components/pages/LearnerClasses';
+import ClassDetail from '../src/components/pages/ClassDetail';
 
 function App() {
   return (
@@ -52,6 +53,9 @@ function App() {
 		          </Route>
 				  <Route path="/learnerClasses">
 				  	<LearnerClasses />
+		          </Route>
+				  <Route path="/classDetails">
+				  	<ClassDetail />
 		          </Route>
 				  <Route path="/edit">
 				  	<EditClasses />
