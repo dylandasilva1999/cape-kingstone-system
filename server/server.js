@@ -6,7 +6,7 @@ var express = require('express');
 var app = express();
 var port = 8000;
 
-//var cors = require('cors');
+var cors = require('cors');
 
 var authenticator = require('./authenticator');
 var logger = require('./logger');
@@ -26,11 +26,11 @@ var corsOptions = {
 var urlpath = path.join(__dirname, '../frontend/build');
 
 app.use(logger);
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.static(urlpath));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(authenticator);
+//app.use(authenticator);
 
 app.param('subject', (request, response, next) => {
     request.toLower = request.params.subject.toLowerCase();
@@ -69,15 +69,15 @@ app.get('/api/classes/', (request, response) => {
     d. The classroom number
 */
 app.get('/api/classDetails/:id', (request, response) => {
-    var id = request.response.id;
+    var id = request.params.id;
     var teacherName = "";
     var students = [];
-    var classSlot, classTime, classNumber, className;
+    var classSlot, classTime, classNumber, className, classGroup;
   
     //Getting Teacher Name of Specific Class
     for (var i = 0; i < data.teachers.length; i++) {
-      for (var p = 0; p < data.teachers[i].classes.length; j++) {
-        if (data.teachers[i].classes[j] === parseInt(id)) {
+      for (var p = 0; p < data.teachers[i].classes.length; p++) {
+        if (data.teachers[i].classes[p] === parseInt(id)) {
             teacherName = data.teachers[i].name;
         }
       }
@@ -86,7 +86,7 @@ app.get('/api/classDetails/:id', (request, response) => {
     //Getting Students in that Specific class
     for (var i = 0; i < data.learners.length; i++) {
       for (var p = 0; p < data.learners[i].classes.length; p++) {
-        if (data.learners[i].classes[j] === parseInt(id)) {
+        if (data.learners[i].classes[p] === parseInt(id)) {
             students.push(data.learners[i].name);
         }
       }
@@ -103,7 +103,7 @@ app.get('/api/classDetails/:id', (request, response) => {
   
     //Getting classTime of the Specific class
     for (var i = 0; i < data.slots.length; i++) {
-      if ((data.slots[i].slot = slot)) {
+      if ((data.slots[i].slot = classSlot)) {
         for (var p = 1; p < data.slots[i].times.length; p++) {
           if (p === classGroup) {
             classTime = data.slots[i].times[p];
@@ -111,12 +111,18 @@ app.get('/api/classDetails/:id', (request, response) => {
         }
       }
     }
+
+    classDetails = [
+        {
+          subject: className,
+          teacher: teacherName,
+          students: students,
+          time: classTime,
+          class: classNumber,
+        },
+    ];
   
-    response.json("The specific class is " + className + " and details on this class: \\n\\n" + 
-    "a. The teacher of the class is: " + teacherName + "\\n" + 
-    "b. The students in this class are: " + students + "\\n" +
-    "c. Time and Day of class: " + classTime + "\\n" +
-    "d. The classroom number is: " + classNumber);
+    response.json(classDetails);
 });
 
 /*
@@ -207,10 +213,10 @@ app.get('/api/learners/:id/classes', (request, response) => {
         }  
     }
 
-    var learner = {
+    var learner = [{
         learner: learnerName,
         learnerSubjects: learnerSubjects
-    }
+    }]
 
     response.json(learner);
 });

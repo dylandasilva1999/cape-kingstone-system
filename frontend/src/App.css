@@ -109,4 +109,45 @@
   margin-bottom: 40px;
 }
 
+#classes {
+  margin-top: -120px;
+}
+
+.all-classes {
+  background-color: #27265F;
+  color: aliceblue;
+  border-radius: 20px;
+  height: 120px;
+}
+
+.all-classes p{
+  padding-top: 5px;
+  margin-left: 5%;
+}
+
+.all-classes h3{
+  margin-left: 2%;
+  display: inline;
+  background-color: #F15F24;
+  padding: 5px;
+}
+
+.my-classes {
+  background-color: #27265F;
+  color: aliceblue;
+  border-radius: 20px;
+  height: 100px;
+}
+
+.my-classes p{
+  padding-top: 12px;
+  margin-left: 5%;
+}
+
+.my-classes h3{
+  margin-left: 2%;
+  display: inline;
+  background-color: #F15F24;
+  padding: 5px;
+}
 

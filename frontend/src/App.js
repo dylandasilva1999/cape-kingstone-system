@@ -10,8 +10,9 @@ import {
 
 import Dashboard from '../src/components/pages/Dashboard';
 import EditClasses from '../src/components/pages/EditClasses';
-import MyClasses from '../src/components/pages/MyClasses';
+import AllClasses from '../src/components/pages/AllClasses';
 import Login from '../src/components/pages/Login';
+import LearnerClasses from '../src/components/pages/LearnerClasses';
 
 function App() {
   return (
@@ -28,7 +29,10 @@ function App() {
 		              <Link to="/login">Login</Link>
 		            </li>
 					<li>
-						<Link to="/classes">My Classes</Link>
+						<Link to="/classes">All Classes</Link>
+					</li>
+					<li>
+						<Link to="/learnerClasses">My Classes</Link>
 					</li>
 					<li>
 						<Link to="/edit">Edit Classes</Link>
@@ -44,7 +48,10 @@ function App() {
 				  	<Login />
 		          </Route>
 				  <Route path="/classes">
-				  	<MyClasses />
+				  	<AllClasses />
+		          </Route>
+				  <Route path="/learnerClasses">
+				  	<LearnerClasses />
 		          </Route>
 				  <Route path="/edit">
 				  	<EditClasses />
